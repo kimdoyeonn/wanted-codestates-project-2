@@ -15,4 +15,34 @@ export const userApi = {
     } = await api.get(`/users/nickname/${nickname}`);
     return accessId;
   },
+  getMatchData: async (accessId) => {
+    const { data } = await api.get(`/users/${accessId}/matches`);
+    return data;
+  },
+};
+
+export const matchApi = {
+  getMatchDetail: async (matchId) => {
+    const {
+      data: { matchResult },
+    } = await api.get(`/matches/${matchId}`);
+
+    return { matchResult };
+  },
+  getAll: async () => {
+    const now = new Date();
+    const year = now.getYear();
+    const month = now.getMonth();
+    const date = now.getDate();
+    const startDate = `${year}-${month}-01`;
+    const endDate = `${year}-${month}-${date}`;
+    const offset = 0;
+    const limit = 10;
+    const matchTypes = '';
+    const data = await api.get(
+      `matches/all?start_date=${startDate}&end_date=${endDate}&offset=${offset}&limit=${limit}&match_types=${matchTypes}`,
+    );
+
+    return data;
+  },
 };
