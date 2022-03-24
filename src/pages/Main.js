@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { userApi } from '../api';
 
 const category = [
@@ -10,6 +11,7 @@ const category = [
 const Main = () => {
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [searchValue, setSearchValue] = useState('');
+  const navigate = useNavigate();
 
   const handleSelect = (e) => {
     console.log(e.target.selectedIndex);
@@ -18,8 +20,18 @@ const Main = () => {
   };
 
   const searchData = async () => {
-    const accessId = await userApi.getUserId(searchValue);
-    console.log(searchValue, accessId);
+    try {
+      const accessId = await userApi.getUserId(searchValue);
+      navigate(`/user`, {
+        state: {
+          accessId,
+        },
+      });
+      // const data = await userApi.getMatchData(accessId);
+      // console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleInput = (e) => {
@@ -33,7 +45,7 @@ const Main = () => {
         alt="covid_left"
       />
       <img src="https://tmi.nexon.com/img/assets/covid_right.png" alt="" /> */}
-      <div className="bg-main-back bg-cover w-full h-full flex justify-center items-center">
+      <div className="flex items-center justify-center w-full h-full bg-cover bg-main-back">
         <div className="w-[670px] h-[67px] border-4 rounded-full flex justify-center items-center border-white">
           <label
             htmlFor="selectCategory"
@@ -53,7 +65,7 @@ const Main = () => {
           <input
             type="text"
             placeholder={category[selectedCategory].placeholder}
-            className="bg-transparent flex-1 pl-6 font-normal text-2xl text-white placeholder-white placeholder-opacity-50"
+            className="flex-1 pl-6 text-2xl font-normal text-white placeholder-white placeholder-opacity-50 bg-transparent"
             value={searchValue}
             onChange={handleInput}
             onKeyUp={(e) => {
