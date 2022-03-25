@@ -25,22 +25,26 @@ const Rank = () => {
     <div>
       <div className="h-[600px] bg-[#005FCC]  text-white">
         <div>
-          <div className="text-[22px] font-normal pl-[10px] mb-[10px]">
-            {month}월 TMI 랭킹
-          </div>
-          <div className="inline-block align-top ml-[10px] w-[35px] h-[3px] bg-white"></div>
-          <div className="text-[12px] font-normal pl-[10px]">
-            랭킹 산정기간 {year}년 {month}월 1일 00:00:00 ~ {year}년 {month}월{' '}
-            {30}일 24:00:00
-          </div>
-          <div className="text-[12px] font-normal pl-[10px]">
-            최근 업데이트 {year}년 {month}월 {day}일
+          <div>
+            <div className="text-[22px] font-normal pl-[10px] mb-[10px]">
+              {month}월 TMI 랭킹
+            </div>
+            <div className="inline-block align-top ml-[10px] w-[35px] h-[3px] bg-white"></div>
+            <div className="text-[12px] font-normal pl-[10px]">
+              랭킹 산정기간 {year}년 {month}월 1일 00:00:00 ~ {year}년 {month}월{' '}
+              {30}일 24:00:00
+            </div>
+            <div className="text-[12px] font-normal pl-[10px]">
+              최근 업데이트 {year}년 {month}월 {day}일
+            </div>
           </div>
         </div>
+        <div className="flex justify-between px-[10px]">
+          <RankCard />
+          <RankCard />
+          <RankCard />
+        </div>
       </div>
-      <RankCard />
-      <RankCard />
-      <RankCard />
     </div>
   );
 };
